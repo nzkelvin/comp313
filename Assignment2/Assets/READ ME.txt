@@ -1,0 +1,17 @@
+A couple of notes before you get started.
+
+The other file in this zip folder is a self-contained unity package which contains all the assets, and any animation controllers and animation cycles i've created.
+
+To load the package, launch unity, start a new 3D project. Once this loads the main unity interface, select Assets > Import Package > Custom Package and browse to the package extracted from the zip.
+
+After preparing the package, Unity will then bring up a list of the included assets, just click on import in the bottom right of the window.
+
+Once everthing's been loaded into the project, go to file > open scene and select main.unity.
+
+Once this opens you'll be able to see all the objects i've created orientated in front of a stationary camera. If you then click play, all the animations associated with the main character and a few of the objects in the scene will trigger.
+
+My folder hierachy should be pretty straight forward to navigate.
+
+Let me know if you have any questions!
+
+Reuben.
