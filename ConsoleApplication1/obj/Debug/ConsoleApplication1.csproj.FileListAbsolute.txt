@@ -1,0 +1,6 @@
+C:\Users\kelvi_000\Source\Repos\comp313\ConsoleApplication1\bin\Debug\ConsoleApplication1.exe.config
+C:\Users\kelvi_000\Source\Repos\comp313\ConsoleApplication1\bin\Debug\ConsoleApplication1.exe
+C:\Users\kelvi_000\Source\Repos\comp313\ConsoleApplication1\bin\Debug\ConsoleApplication1.pdb
+C:\Users\kelvi_000\Source\Repos\comp313\ConsoleApplication1\obj\Debug\ConsoleApplication1.csprojResolveAssemblyReference.cache
+C:\Users\kelvi_000\Source\Repos\comp313\ConsoleApplication1\obj\Debug\ConsoleApplication1.exe
+C:\Users\kelvi_000\Source\Repos\comp313\ConsoleApplication1\obj\Debug\ConsoleApplication1.pdb
