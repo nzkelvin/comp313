@@ -24,7 +24,7 @@ public class AIMovement : MonoBehaviour {
         _patrolCentre = new Vector3(initPos.x - PatrolRadius, 0f, 0f);
         CalculateNextPosition(PatrolRadius, _currentDegree, _patrolCentre);
         GameObject.Find("AICharacter").transform.position = _nextPos;
-        Debug.Log(String.Format("NextPos from Start: {0}, {1}, {2}", _nextPos.x, _nextPos.y, _nextPos.z));
+        //Debug.Log(String.Format("NextPos from Start: {0}, {1}, {2}", _nextPos.x, _nextPos.y, _nextPos.z));
     }
 
     // Update is called once per frame
@@ -38,9 +38,9 @@ public class AIMovement : MonoBehaviour {
         GameObject.Find("AICharacter").transform.Rotate(0, -_angleInterval, 0);
         GameObject.Find("AICharacter").transform.position = _nextPos;
         
-        Debug.Log(String.Format("If current pos equals to next pos: {0}", Vector3.Equals(currentPos, _nextPos)));
-        Debug.Log(String.Format("CurrentPos from Update: {0}, {1}, {2}", currentPos.x, currentPos.y, currentPos.z));
-        Debug.Log(String.Format("NextPos from Update: {0}, {1}, {2}", _nextPos.x, _nextPos.y, _nextPos.z));
+        //Debug.Log(String.Format("If current pos equals to next pos: {0}", Vector3.Equals(currentPos, _nextPos)));
+        //Debug.Log(String.Format("CurrentPos from Update: {0}, {1}, {2}", currentPos.x, currentPos.y, currentPos.z));
+        //Debug.Log(String.Format("NextPos from Update: {0}, {1}, {2}", _nextPos.x, _nextPos.y, _nextPos.z));
 
         Animating();
     }
