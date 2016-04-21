@@ -6,11 +6,13 @@ public class CharacterMovement : MonoBehaviour {
     public float speed = 6f;
     public float turnSpeed = 60f;
     public float turnSmoothing = 15f;
+    public Material MoneyObjMaterial;
 
     private Vector3 movement;
     private Vector3 turning;
     private Animator anim;
     private Rigidbody playerRigidbody;
+    private int _goldCount = 0;
 
     void Awake()
     {
@@ -25,6 +27,21 @@ public class CharacterMovement : MonoBehaviour {
 
         Move(lh, lv);
         Animating(lh, lv);
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if(other.tag == "Money")
+        {
+            MakeMoney();
+            Destroy(other.gameObject);
+        }
+    }
+
+    void MakeMoney()
+    {
+        _goldCount++;
+        GameObject.Find("GoldCountText").GetComponent<TextMesh>().text = string.Format("Gold: {0}", _goldCount);
     }
 
     void Move(float lh, float lv)
@@ -60,6 +77,26 @@ public class CharacterMovement : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
-	}
+        SpendMoney();
+    }
+
+    void SpendMoney()
+    {
+        var AttachedGameObjPos = gameObject.transform.position;
+
+        if (Input.GetKeyDown("space") && _goldCount > 0){
+            _goldCount--;
+            GameObject.Find("GoldCountText").GetComponent<TextMesh>().text = string.Format("Gold: {0}", _goldCount);
+            var moneyObj = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+            moneyObj.tag = "Money";
+            moneyObj.transform.position = new Vector3(AttachedGameObjPos.x + 3, 2.5f, AttachedGameObjPos.z);
+            moneyObj.transform.localScale = new Vector3(2, 0.2f, 2);
+            moneyObj.transform.Rotate(270, 0, 0);
+            moneyObj.GetComponent<MeshRenderer>().material = MoneyObjMaterial;
+            var collider = moneyObj.AddComponent<CapsuleCollider>();
+            collider.radius = 0.5f;
+            collider.height = 2;
+            collider.isTrigger = true;
+        }
+    }
 }

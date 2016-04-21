@@ -16,6 +16,7 @@ public class CollisionTrigger : MonoBehaviour {
     {
         Debug.Log("Trigger Exited");
         var aiScript = other.gameObject.GetComponent<AIMovement>();
-        aiScript.KnockOut();
+        if (aiScript != null)
+            aiScript.KnockOut();
     }
 }

@@ -7,6 +7,9 @@ public class AIMovement : MonoBehaviour {
     public float DefaultDegreeInterval = 0.5f;
     public double KnockoutDelayInSec = 0.5;
     public double KnockoutRecoveryInSec = 3.5;
+    public float FollowerOverlapRadius = 1f;
+    public float FollowerStoppingDistance = 3f;
+    public Collider[] colliders;
 
     private NavMeshAgent _agent;
     private Animator _anim;
@@ -15,6 +18,7 @@ public class AIMovement : MonoBehaviour {
     private Vector3 _patrolCentre;
     private Vector3 _nextPos;
     private DateTime _lastKnockoutTime;
+    private GameObject _master = null;
 
     public bool IsKnockedOut {
         get
@@ -40,9 +44,14 @@ public class AIMovement : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        //CheckStatus();
+        CheckMaster();
 
-        if (!IsKnockedOut)
+        if (_master != null)
+        {
+            GetComponent<NavMeshAgent>().SetDestination(_master.transform.position);
+            GetComponent<NavMeshAgent>().stoppingDistance = FollowerStoppingDistance;
+        }
+        else if (!IsKnockedOut)
         {
             var currentPos = GameObject.Find("AICharacter").transform.position;
 
@@ -60,9 +69,24 @@ public class AIMovement : MonoBehaviour {
         Animating();
     }
 
+    private void CheckMaster()
+    {
+        if (_master == null)
+        {
+            colliders = Physics.OverlapSphere(transform.position, FollowerOverlapRadius);
+
+            foreach (var collider in colliders)
+            {
+                if (collider.gameObject.name == "MasterCharacter")
+                {
+                    _master = collider.gameObject;
+                }
+            }
+        }
+    }
+
     public void KnockOut()
     {
-        //IsKnockedOut = true;
         _lastKnockoutTime = DateTime.Now;
     }
 
@@ -79,6 +103,9 @@ public class AIMovement : MonoBehaviour {
     void Animating()
     {
         //bool running = _agent.velocity.x != 0 || _agent.velocity.z != 0;
-        _anim.SetBool("IsRunning", !IsKnockedOut);//running);
+        _anim.SetBool("IsRunning", (_master == null && !IsKnockedOut) 
+            || (_master != null && GetComponent<NavMeshAgent>().velocity.x != 0 && GetComponent<NavMeshAgent>().velocity.z != 0));//running);
+        Debug.Log(GetComponent<NavMeshAgent>().velocity != Vector3.zero);
+        Debug.Log(GetComponent<NavMeshAgent>().speed);
     }
 }
